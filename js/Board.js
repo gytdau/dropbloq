@@ -50,6 +50,10 @@ function Board() {
                 this.setBlock(block, block.x, block.y);
                 boardUI.addBlock(block.x, block.y);
                 this.checkForCollapse(block);
+                if (this.checkIfNoMovesLeft()){
+                    alert("Game over");
+                }
+               // console.log("Did add block");
 
             }
         }
@@ -100,8 +104,18 @@ function Board() {
     };
 
     this.checkIfNoMovesLeft = function () {
-        var shapes = shapeUI.shapeQueue;
-        
+       // console.log("Checking");
+        for (var shape = 0; shape < shapeUI.shapeQueue.length; shape++) {
+            for (var row = 0; row < this.boardData.length; row++) {
+                for (var column = 0; column < this.boardData[row].length; column++) {
+                    if (this.shapeFits(shapeUI.shapeQueue[shape],row,column)) {
+                        console.log("Shape fits");
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     };
 
     this.getBlock = function (x, y) {
