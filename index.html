@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dropbloq</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="sha384-2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="sha384-VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Varela" rel="stylesheet">
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+
+    <script src="js/js.cookie.js"></script>
+    <script src="js/Block.js"></script>
+    <script src="js/Board.js"></script>
+    <script src="js/BoardUI.js"></script>
+    <script src="js/Manager.js"></script>
+    <script src="js/MiscUI.js"></script>
+    <script src="js/Shape.js"></script>
+    <script src="js/ShapeUI.js"></script>
+
+    <link rel="stylesheet" href="css/board.css">
+    <link rel="stylesheet" href="css/misc.css">
+    <link rel="stylesheet" href="css/shape.css">
+</head>
+<body>
+<div class="container">
+    <div class="col-md-6 offset-md-3">
+        <div class="text-xs-center">
+            <div class="logo">
+                <h2 class="logo-line">drop</h2><h2 class="logo-line">bloq</h2>
+            </div>
+        </div>
+        <div class="toolbar">
+            <div class="score">
+                <div class="score-label">Score</div>
+                <div id="current-score" class="score-value">0</div>
+            </div>
+            <div class="score">
+                <div class="score-label">High score</div>
+                <div id="high-score" class="score-value">0</div>
+            </div>
+        </div>
+        <div class="board">
+            <div class="board-container">
+            </div>
+        </div>
+        </div>
+    <div class="col-md-8 offset-md-2 text-xs-center">
+        <div class="shapes"></div>
+    </div>
+    <div class="col-md-6 offset-md-3">
+        <div class="credits">Made by Cormac Kinsella, Gytis Daujotas and Ois&iacute;n O'Duibhir in one uneventful weekend.</div>
+    </div>
+</div>
+</body>
+</html>
