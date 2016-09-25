@@ -7,3 +7,12 @@ function Shape() {
     ];
     this.colour = null;
 }
+
+function CoordinateShape() {
+    this.shapeBlocks = [
+        [null,null,null,null],
+        [null,null,null,null],
+        [null,null,null,null],
+        [null,null,null,null]
+    ];
+}

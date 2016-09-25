@@ -100,6 +100,7 @@ function Board() {
     };
 
     this.checkIfNoMovesLeft = function () {
+        var shapes = shapeUI.shapeQueue;
         
     };
 
