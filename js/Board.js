@@ -108,7 +108,7 @@ function Board() {
         for (var shape = 0; shape < shapeUI.shapeQueue.length; shape++) {
             for (var row = 0; row < this.boardData.length; row++) {
                 for (var column = 0; column < this.boardData[row].length; column++) {
-                    if (this.shapeFits(shapeUI.shapeQueue[shape],row,column)) {
+                    if (this.shapeFits(shapeUI.shapeQueue[shape],column,row)) {
                         console.log("Shape fits");
                         return false;
                     }
