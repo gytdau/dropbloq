@@ -89,7 +89,8 @@ function ShapeUI() {
 
                     $(".board-tile").unbind();
 
-                    $(".board-tile").hover(function() {
+                    $(".board-tile-in-board").hover(function() {
+                        // Board tiles are also used in shapes: we only need the ones in the board.
                         ShapeUI.posX = $(this).data("pos-x");
                         ShapeUI.posY = $(this).data("pos-y");
                     });

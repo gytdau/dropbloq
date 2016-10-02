@@ -5,7 +5,7 @@ function BoardUI() {
         var tiles = "";
         for (y = 0; y < rows; y++) {
             for (x = 0; x < columns; x++) {
-                tiles += "<div class='board-tile x-" + x + " y-" + y + "' data-pos-x='" + x + "' data-pos-y='" + y + "'></div>";
+                tiles += "<div class='board-tile board-tile-in-board x-" + x + " y-" + y + "' data-pos-x='" + x + "' data-pos-y='" + y + "'></div>";
             }
         }
 

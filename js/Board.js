@@ -24,6 +24,10 @@ function Board() {
                 block.x = (x + column);
                 block.y = (y + row);
 
+                if(block.x < 0 || block.x >= manager.columns || block.y < 0 || block.y >= manager.rows) {
+                    return false;
+                }
+
                 if(this.getBlock(block.x, block.y) != null) {
                     return false;
                 }
