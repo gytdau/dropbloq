@@ -79,3 +79,6 @@ body {
 .active-true {
     cursor: move;
 }
+.active-false > .board-tile-block {
+    border: none !important;
+}
