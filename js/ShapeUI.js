@@ -91,25 +91,39 @@ function ShapeUI() {
 
                     $(".board-tile-in-board").hover(function() {
                         // Board tiles are also used in shapes: we only need the ones in the board.
-                        ShapeUI.posX = $(this).data("pos-x");
-                        ShapeUI.posY = $(this).data("pos-y");
+                        shapeUI.posX = $(this).data("pos-x");
+                        shapeUI.posY = $(this).data("pos-y");
                     });
+                });
+                $(".board").hover(function() {}, function() {
+                    shapeUI.posX = null;
+                    shapeUI.posY = null;
+                    console.log('board is unhovered');
                 });
                 shape.addClass("shape-dragging");
                 var index = shape.data("shapequeueindex");
                 shapeUI.startDrag(index);
             },
+            revert: function() {
+                return (shapeUI.posX == null || shapeUI.posY == null);
+            },
             stop: function(event, ui) {
                 shape.removeClass("shape-dragging");
-                var posX = ShapeUI.posX;
-                var posY = ShapeUI.posY;
+                var posX = shapeUI.posX;
+                var posY = shapeUI.posY;
+                console.log(posX + " " + posY + " " + shapeUI.offsetX + " " + shapeUI.offsetY);
                 $(".board-tile").unbind();
-                if(board.addShape(shapeUI.shapeSelected, posX - shapeUI.offsetX, posY - shapeUI.offsetY) == false) {
+                $(".board").unbind();
 
-                } else {
+                if(posX == null && posY == null) {
+
+                    return;
+                }
+                if(board.addShape(shapeUI.shapeSelected, posX - shapeUI.offsetX, posY - shapeUI.offsetY) == true) {
                     shapeUI.removeShape(parseInt(shape.data("shapequeueindex")));
                     shapeUI.addShapeToQueue();
                 }
+
                 shapeUI.stopDrag(shape.data("shapequeueindex"));
 
             }
@@ -166,7 +180,8 @@ function ShapeUI() {
     };
 
     this.startDrag = function(index) {
-        this.shapeSelected = this.shapeQueue[index];
+        console.log("The shpe has started dragging with an index of " + index);
+        shapeUI.shapeSelected = shapeUI.shapeQueue[index];
     };
 
     this.stopDrag = function(index) {
@@ -185,4 +200,4 @@ function ShapeUI() {
 
 }
 
-shapeUI = new ShapeUI();
+var shapeUI = new ShapeUI();

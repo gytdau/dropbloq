@@ -70,6 +70,7 @@ function Board() {
         });
 
         manager.addScore(20);
+        return true;
     };
 
     this.checkForCollapse = function (block) {
