@@ -78,6 +78,7 @@ function ShapeUI() {
 
     this.enableDragging = function(shape) {
         shape.draggable({
+            containment: 'body',
             handle: ".active-true",
             start: function(event) {
                 $(".board-tile").hover(function() {
