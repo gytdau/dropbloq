@@ -34,6 +34,7 @@ function Board() {
     };
 
     this.addShape = function (shape, x, y) {
+        var blockQueue = [];
         if(!this.shapeFits(shape, x, y)) {
             return false;
         }
@@ -48,8 +49,9 @@ function Board() {
 
                 block.colour = shape.colour;
                 this.setBlock(block, block.x, block.y);
-                boardUI.addBlock(block.x, block.y);
-                this.checkForCollapse(block);
+                if(!this.checkForCollapse(block)) {
+                    blockQueue.push([block.x, block.y]);
+                }
                 if (this.checkIfNoMovesLeft()){
                     alert("Game over");
                 }
@@ -57,6 +59,12 @@ function Board() {
 
             }
         }
+        $.each(blockQueue, function(i, block) {
+            setTimeout(function() {
+                boardUI.addBlock(block[0], block[1]);
+            }, 100 * i);
+        });
+
         manager.addScore(20);
     };
 

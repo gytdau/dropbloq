@@ -65,6 +65,17 @@ body {
     from {transform: scale(1);}
     to {transform: scale(0);}
 }
+.block-fade-in {
+    animation: block-fade-in 0.2s forwards;
+}
+@keyframes block-fade-in {
+    from {
+        margin-top: -20px;
+    }
+    to {
+        margin-top: 0px;
+    }
+}
 .active-true {
     cursor: move;
 }

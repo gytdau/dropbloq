@@ -112,7 +112,7 @@ function BoardUI() {
         var UIblock = $(".x-" + x + ".y-" + y);
         var block = board.getBlock(x, y);
 
-        UIblock.html("<div class='board-tile-block' style='background-color: " + block.colour + ";'></div>");
+        UIblock.html("<div class='board-tile-block block-fade-in' style='background-color: " + block.colour + ";'></div>");
 
         this.renderJoin(x, y);
 
@@ -126,7 +126,7 @@ function BoardUI() {
         $("." + letter + "-" + pos).each(function(x) {
             var object = $(this);
             setTimeout(function() {
-                object.find(".board-tile-block").addClass("block-fade-out");
+                object.find(".board-tile-block").removeClass("block-fade-in").addClass("block-fade-out");
                 console.log("Setting for: " + x);
             }, 50 * x);
         });
