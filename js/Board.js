@@ -25,6 +25,7 @@ function Board() {
                 block.y = (y + row);
 
                 if(block.x < 0 || block.x >= manager.columns || block.y < 0 || block.y >= manager.rows) {
+
                     return false;
                 }
 

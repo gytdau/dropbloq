@@ -14,42 +14,42 @@ function ShapeUI() {
             [false, false, false, false]
         ],
         [
-            [["jo"], false, false, false],
-            [false, false,false, false],
+            [false, false, false, false],
+            [false, ["jo"],false, false],
             [false, false, false, false],
             [false, false, false, false]
         ],
         [
+            [false, false,false, false],
             [["join-right"], ["join-all"], ["join-all"],["join-left"]],
-            [false, false,false, false],
             [false, false, false, false],
             [false, false, false, false]
         ],
-        [
-            [["join-bottom"], false, false, false],
-            [["join-all"], false,false, false],
-            [["join-all"], false, false, false],
-            [["join-top"], false, false, false]
-        ]
-        ,
-        [
-            [["join-right join-bottom"], ["join-left"], false, false],
-            [["join-top"], false,false, false],
-            [false, false, false, false],
-            [false, false, false, false]
-        ]
-        ,
-        [
-            [["join-right"], ["join-left  join-bottom"], false, false],
-            [false, ["join-top"],false, false],
-            [false, false, false, false],
-            [false, false, false, false]
-        ]
-        ,
         [
             [false, ["join-bottom"], false, false],
-            [["join-right"], ["join-left join-top"],false, false],
+            [false, ["join-all"],false, false],
+            [false, ["join-all"], false, false],
+            [false, ["join-top"], false, false]
+        ]
+        ,
+        [
             [false, false, false, false],
+            [false, ["join-right join-bottom"],["join-left"], false],
+            [false, ["join-top"], false, false],
+            [false, false, false, false]
+        ]
+        ,
+        [
+            [false, false, false, false],
+            [false, ["join-right"],["join-left  join-bottom", false],
+            [false, false,  ["join-top"], false],
+            [false, false, false, false]
+        ]
+        ,
+        [
+            [false, false, false, false],
+            [false, false, ["join-bottom"], false],
+            [false, ["join-right"], ["join-left join-top"], false],
             [false, false, false, false]
         ]
         ,
@@ -104,28 +104,30 @@ function ShapeUI() {
                 var index = shape.data("shapequeueindex");
                 shapeUI.startDrag(index);
             },
+            // We moved all of .stop to .revert so that we can figure out if it should be reverted
+            // Sorry Jesus
             revert: function() {
-                return (shapeUI.posX == null || shapeUI.posY == null);
-            },
-            stop: function(event, ui) {
                 shape.removeClass("shape-dragging");
+
                 var posX = shapeUI.posX;
                 var posY = shapeUI.posY;
+
                 console.log(posX + " " + posY + " " + shapeUI.offsetX + " " + shapeUI.offsetY);
                 $(".board-tile").unbind();
                 $(".board").unbind();
 
                 if(posX == null && posY == null) {
-
-                    return;
-                }
-                if(board.addShape(shapeUI.shapeSelected, posX - shapeUI.offsetX, posY - shapeUI.offsetY) == true) {
+                    return true;
+                } else if(board.addShape(shapeUI.shapeSelected, posX - shapeUI.offsetX, posY - shapeUI.offsetY) == true) {
                     shapeUI.removeShape(parseInt(shape.data("shapequeueindex")));
                     shapeUI.addShapeToQueue();
+                } else {
+                    return true;
                 }
 
                 shapeUI.stopDrag(shape.data("shapequeueindex"));
 
+                return false;
             }
         });
     };
