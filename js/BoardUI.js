@@ -5,7 +5,7 @@ function BoardUI() {
         var tiles = "";
         for (y = 0; y < rows; y++) {
             for (x = 0; x < columns; x++) {
-                tiles += "<div class='board-tile board-tile-in-board x-" + x + " y-" + y + "' data-pos-x='" + x + "' data-pos-y='" + y + "'></div>";
+                tiles += "<div class='board-tile board-tile-in-board x-" + x + " y-" + y +  "' data-pos-x='" + x + "' data-pos-y='" + y + "'></div>";
             }
         }
 
@@ -108,11 +108,45 @@ function BoardUI() {
 
     };
 
+    this.causeExplosion = function(x, y) {
+        var candidates = [
+            [x, y],
+            [x - 1, y],
+            [x, y - 1],
+            [x - 1, y - 1],
+            [x + 1, y],
+            [x, y + 1],
+            [x + 1, y + 1]
+        ];
+
+        $.each(candidates, function(i, candidate) {
+            var x = candidate[0];
+            var y = candidate[1];
+
+            // Is this tile within the map's bounds?
+            if(x < 0) {
+                return
+            }
+            if(x >= manager.columns) {
+                return
+            }
+            if(y < 0) {
+                return
+            }
+            if(y >= manager.rows) {
+                return
+            }
+
+            var UIblock = $(".x-" + x + ".y-" + y);
+            UIblock.find(".board-tile-block").removeClass("block-fade-in").addClass("block-fade-out");
+        });
+    };
+
     this.addBlock = function (x, y) {
         var UIblock = $(".x-" + x + ".y-" + y);
         var block = board.getBlock(x, y);
 
-        UIblock.html("<div class='board-tile-block block-fade-in' style='background-color: " + block.colour + ";'></div>");
+        UIblock.html("<div class='board-tile-block block-fade-in block-"+block.type+"' style='background-color: " + block.colour + ";'></div>");
 
         this.renderJoin(x, y);
 
@@ -127,7 +161,6 @@ function BoardUI() {
             var object = $(this);
             setTimeout(function() {
                 object.find(".board-tile-block").removeClass("block-fade-in").addClass("block-fade-out");
-                console.log("Setting for: " + x);
             }, 50 * x);
         });
     };

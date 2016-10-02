@@ -82,3 +82,15 @@ body {
 .active-false > .board-tile-block {
     border: none !important;
 }
+
+
+.block-bomb {
+    color: rgba(1, 1, 1, 0.5);
+    font: normal normal normal 24px/1 "Material Design Icons";
+    -webkit-font-smoothing: antialiased;
+    padding-top: 10px;
+    text-align: center;
+}
+.block-bomb:before {
+    content: "\F690";
+}

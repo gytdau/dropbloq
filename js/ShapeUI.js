@@ -2,61 +2,61 @@ function ShapeUI() {
     this.shapeIdCounter = 0;
     this.shapesPool = [
         [
-            [["join-right join-bottom"], ["join-all"], ["join-left join-bottom"], false],
-            [["join-all"], ["join-all"],["join-all"], false],
-            [["join-top join-right"], ["join-all"], ["join-top join-left"], false],
-            [false, false, false, false]
-        ],
-        [
-            [["join-right join-bottom"], ["join-left join-bottom"], false, false],
-            [["join-right join-top"], ["join-left join-top"],false, false],
-            [false, false, false, false],
+            ["join-right join-bottom", "join-all", "join-left join-bottom", false],
+            ["join-all", "join-all","join-all", false],
+            ["join-top join-right", "join-all", "join-top join-left", false],
             [false, false, false, false]
         ],
         [
             [false, false, false, false],
-            [false, ["jo"],false, false],
+            [false, "join-right join-bottom", "join-left join-bottom", false],
+            [false, "join-right join-top", "join-left join-top", false],
+            [false, false, false, false]
+        ],
+        [
+            [false, false, false, false],
+            [false, "jo",false, false],
             [false, false, false, false],
             [false, false, false, false]
         ],
         [
             [false, false,false, false],
-            [["join-right"], ["join-all"], ["join-all"],["join-left"]],
+            ["join-right", "join-all", "join-all","join-left"],
             [false, false, false, false],
             [false, false, false, false]
         ],
         [
-            [false, ["join-bottom"], false, false],
-            [false, ["join-all"],false, false],
-            [false, ["join-all"], false, false],
-            [false, ["join-top"], false, false]
+            [false, "join-bottom", false, false],
+            [false, "join-all",false, false],
+            [false, "join-all", false, false],
+            [false, "join-top", false, false]
         ]
         ,
         [
             [false, false, false, false],
-            [false, ["join-right join-bottom"],["join-left"], false],
-            [false, ["join-top"], false, false],
+            [false, "join-right join-bottom","join-left", false],
+            [false, "join-top", false, false],
             [false, false, false, false]
         ]
         ,
         [
             [false, false, false, false],
-            [false, ["join-right"],["join-left  join-bottom", false],
-            [false, false,  ["join-top"], false],
+            [false, "join-right", "join-left join-bottom", false],
+            [false, false,  "join-top", false],
             [false, false, false, false]
         ]
         ,
         [
             [false, false, false, false],
-            [false, false, ["join-bottom"], false],
-            [false, ["join-right"], ["join-left join-top"], false],
+            [false, false, "join-bottom", false],
+            [false, "join-right", "join-left join-top", false],
             [false, false, false, false]
         ]
         ,
         [
-            [["join-bottom"], false, false, false],
-            [["join-top join-right"], ["join-left"], false, false],
             [false, false, false, false],
+            [false, "join-bottom", false, false],
+            [false, "join-top join-right", "join-left", false],
             [false, false, false, false]
         ]
     ];
@@ -98,7 +98,6 @@ function ShapeUI() {
                 $(".board").hover(function() {}, function() {
                     shapeUI.posX = null;
                     shapeUI.posY = null;
-                    console.log('board is unhovered');
                 });
                 shape.addClass("shape-dragging");
                 var index = shape.data("shapequeueindex");
@@ -112,7 +111,6 @@ function ShapeUI() {
                 var posX = shapeUI.posX;
                 var posY = shapeUI.posY;
 
-                console.log(posX + " " + posY + " " + shapeUI.offsetX + " " + shapeUI.offsetY);
                 $(".board-tile").unbind();
                 $(".board").unbind();
 
@@ -147,6 +145,10 @@ function ShapeUI() {
         for(i = 0;i<this.shapeSize;i++) {
             for(j=0;j<this.shapeSize;j++) {
                 destination[i][j] = original[i][j];
+                var probability = Math.random();
+                if(probability < 0.50 && original[i][j] != false) {
+                    destination[i][j] += " block-bomb";
+                }
             }
         }
     };
@@ -163,9 +165,7 @@ function ShapeUI() {
                 shapeHTML += "<div data-pos-x='"+j+"' data-pos-y='"+i+"' class='board-tile board-tile-hidden active-"+(shape.shapeData[i][j] != false);
                 shapeHTML += "' style='width: "+this.cellSize+"px; height: "+this.cellSize+"px '><div class='board-tile-block";
                 if (shape.shapeData[i][j] != false) {
-                    for(k=0;k<shape.shapeData[i][j].length;k++) {
-                        shapeHTML += " " + shape.shapeData[i][j][k];
-                    }
+                    shapeHTML += " " + shape.shapeData[i][j];
                 }
                 shapeHTML += "' style='background-color: "+(shape.shapeData[i][j] != false?shape.colour:undefined)+"'></div></div>";
             }
@@ -182,7 +182,6 @@ function ShapeUI() {
     };
 
     this.startDrag = function(index) {
-        console.log("The shpe has started dragging with an index of " + index);
         shapeUI.shapeSelected = shapeUI.shapeQueue[index];
     };
 

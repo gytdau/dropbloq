@@ -51,18 +51,21 @@ function Board() {
                 var block = new Block();
                 block.x = (x + column);
                 block.y = (y + row);
-
                 block.colour = shape.colour;
+                if(shape.shapeData[row][column].indexOf("bomb") !== -1) {
+                    // Is this a bomb in shapeData?
+                    block.type = "bomb";
+
+                }
+
                 this.setBlock(block, block.x, block.y);
                 if(!this.checkForCollapse(block)) {
                     blockQueue.push([block.x, block.y]);
                 }
-                if (this.checkIfNoMovesLeft()){
-                    alert("Game over");
-                }
-               // console.log("Did add block");
-
             }
+        }
+        if (this.checkIfNoMovesLeft()){
+            alert("Game over");
         }
         $.each(blockQueue, function(i, block) {
             setTimeout(function() {
@@ -98,19 +101,71 @@ function Board() {
         }
     };
 
+    this.causeExplosion = function(x, y) {
+        console.log("board.js explosion caused at " + x + ", " + y);
+        var candidates = [
+            [x, y],
+            [x - 1, y],
+            [x, y - 1],
+            [x - 1, y - 1],
+            [x + 1, y],
+            [x, y + 1],
+            [x + 1, y + 1]
+        ];
 
+        var thisX = x;
+        var thisY = y;
+        $.each(candidates, function(i, candidate) {
+            var x = candidate[0];
+            var y = candidate[1];
+
+            // Is this tile within the map's bounds?
+            if(x < 0) {
+                return
+            }
+            if(x >= manager.columns) {
+                return
+            }
+            if(y < 0) {
+                return
+            }
+            if(y >= manager.rows) {
+                return
+            }
+
+            if(thisX !== x && thisY != y) {
+                var possibleBoomBoom = board.getBlock(x, y);
+                if(possibleBoomBoom !== null) {
+                    if(possibleBoomBoom.type == "bomb") {
+                        board.causeExplosion(x, y);
+                    }
+                }
+            }
+            board.setBlock(null, x, y);
+
+        });
+        boardUI.causeExplosion(x, y);
+    };
     this.collapse = function (shouldBeVertical, pos) {
-        if (shouldBeVertical) {
-            for (var row = 0; row < this.boardData[pos].length; row++) {
-                // Pos is y
-                this.setBlock(null, row, pos);
+        if (!shouldBeVertical) {
+            for (var row = 0; row < manager.rows; row++) {
+                // Pos is x
+                if(this.getBlock(pos, row) == null) continue;
+                if(this.getBlock(pos, row).type == "bomb") {
+                    this.causeExplosion(pos, row);
+                }
+                this.setBlock(null, pos, row);
             }
 
             boardUI.collapse(shouldBeVertical, pos);
         } else {
-            for (var column = 0; column < this.boardData.length; column++) {
-                // Pos is x
-                this.setBlock(null, pos, column);
+            for (var column = 0; column < manager.columns; column++) {
+                // Pos is y
+                if(this.getBlock(column, pos) == null) continue;
+                if(this.getBlock(column, pos).type == "bomb") {
+                    this.causeExplosion(column, pos);
+                }
+                this.setBlock(null, column, pos);
             }
             boardUI.collapse(shouldBeVertical, pos);
         }
@@ -118,12 +173,10 @@ function Board() {
     };
 
     this.checkIfNoMovesLeft = function () {
-       // console.log("Checking");
         for (var shape = 0; shape < shapeUI.shapeQueue.length; shape++) {
             for (var row = 0; row < this.boardData.length; row++) {
                 for (var column = 0; column < this.boardData[row].length; column++) {
                     if (this.shapeFits(shapeUI.shapeQueue[shape],column,row)) {
-                        console.log("Shape fits");
                         return false;
                     }
                 }
