@@ -69,6 +69,8 @@ function ShapeUI() {
     this.cellSize = 0;
     this.offsetX = 0;
     this.offsetY = 0;
+    this.posX = 0;
+    this.posY = 0;
     this.initialize = function() {
         this.cellSize = $(".board-container").width() / 10;
         this.addShapeToQueue();
@@ -86,27 +88,28 @@ function ShapeUI() {
                     shapeUI.offsetY = $(this).data("pos-y");
 
                     $(".board-tile").unbind();
+
+                    $(".board-tile").hover(function() {
+                        ShapeUI.posX = $(this).data("pos-x");
+                        ShapeUI.posY = $(this).data("pos-y");
+                    });
                 });
                 shape.addClass("shape-dragging");
                 var index = shape.data("shapequeueindex");
                 shapeUI.startDrag(index);
             },
             stop: function(event, ui) {
-                var posX, posY;
-                $(".board-tile").hover(function() {
-                    posX = $(this).data("pos-x");
-                    posY = $(this).data("pos-y");
-                    $(".board-tile").unbind();
-                    console.log(shapeUI.offsetX + " " + shapeUI.offsetY);
-                    if(board.addShape(shapeUI.shapeSelected, posX - shapeUI.offsetX, posY - shapeUI.offsetY) == false) {
-
-                    } else {
-                        shapeUI.removeShape(parseInt(shape.data("shapequeueindex")));
-                        shapeUI.addShapeToQueue();
-                    }
-                    shapeUI.stopDrag(shape.data("shapequeueindex"));
-                });
                 shape.removeClass("shape-dragging");
+                var posX = ShapeUI.posX;
+                var posY = ShapeUI.posY;
+                $(".board-tile").unbind();
+                if(board.addShape(shapeUI.shapeSelected, posX - shapeUI.offsetX, posY - shapeUI.offsetY) == false) {
+
+                } else {
+                    shapeUI.removeShape(parseInt(shape.data("shapequeueindex")));
+                    shapeUI.addShapeToQueue();
+                }
+                shapeUI.stopDrag(shape.data("shapequeueindex"));
 
             }
         });
