@@ -146,7 +146,7 @@ function ShapeUI() {
             for(j=0;j<this.shapeSize;j++) {
                 destination[i][j] = original[i][j];
                 var probability = Math.random();
-                if(probability < 0.50 && original[i][j] != false) {
+                if(probability < 0.10 && original[i][j] != false) {
                     destination[i][j] += " block-bomb";
                 }
             }
