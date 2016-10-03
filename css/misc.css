@@ -13,7 +13,7 @@ body {
     background: linear-gradient(to left, #56ab2f , #a8e063); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 .body-lose {
-    background: linear-gradient(to left, #f94040, #c40000);
+    background: linear-gradient(to left, #e8b9bf, #ff7f90);
 }
 .logo {
     margin-top: 30px;
