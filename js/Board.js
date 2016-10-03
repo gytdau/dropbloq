@@ -59,15 +59,28 @@ function Board() {
                 }
 
                 this.setBlock(block, block.x, block.y);
-                if(!this.checkForCollapse(block)) {
-                    blockQueue.push([block.x, block.y]);
-                }
+                blockQueue.push([block.x, block.y]);
             }
         }
 
         $.each(blockQueue, function(i, block) {
             setTimeout(function() {
                 boardUI.addBlock(block[0], block[1]);
+                if(i == blockQueue.length-1) {
+                    for(var row = 0;row<manager.rows;row++) {
+                        var currentBlock = board.boardData[row][0];
+                        if(currentBlock != null) {
+                            board.checkForCollapse(currentBlock);
+                        }
+                    }
+
+                    for(var column = 0;column<manager.columns;column++) {
+                        var currentBlock = board.boardData[0][column];
+                        if(currentBlock != null) {
+                            board.checkForCollapse(currentBlock);
+                        }
+                    }
+                }
             }, 100 * i);
         });
 

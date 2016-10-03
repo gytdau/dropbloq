@@ -147,9 +147,6 @@ function BoardUI() {
     this.addBlock = function (x, y) {
         var UIblock = $(".x-" + x + ".y-" + y);
         var block = board.getBlock(x, y);
-        if(block == null) {
-            return;
-        }
 
         UIblock.html("<div class='board-tile-block block-fade-in block-"+block.type+"' style='background-color: " + block.colour + ";'></div>");
 
