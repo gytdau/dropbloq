@@ -40,7 +40,6 @@
 
 .new-game {
     display: inline-block;
-    float: right;
 }
 
 .switch {
@@ -95,4 +94,9 @@ input:checked + .slider:before {
 
 .slider.round:before {
     border-radius: 50%;
+}
+
+.loss-message {
+    color: #ad0325;
+    font-size: 2em;
 }

@@ -97,8 +97,3 @@ body {
 .block-bomb:before {
     content: "\F690";
 }
-
-.loss-message {
-    color: #ad0325;
-    font-size: 2em;
-}
