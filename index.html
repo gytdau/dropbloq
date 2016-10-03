@@ -42,7 +42,16 @@
                 <div id="high-score" class="score-value">0</div>
             </div>
             <div class="new-game">
-                <button class="btn btn-danger" onclick="manager.initialize()">New Game</button>
+                <div class="new-game-button">
+                    <button class="btn btn-danger" onclick="manager.initialize()">New Game</button>
+                </div>
+                <div class="enable-bombs">
+                    Spawn Bombs?
+                    <label class="switch">
+                        <input type="checkbox">
+                        <div class="slider round"></div>
+                    </label>
+                </div>
             </div>
             <div id="loss-popup">
                 <div class="loss-message">Game Over</div>

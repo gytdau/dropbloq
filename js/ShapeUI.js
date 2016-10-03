@@ -152,8 +152,10 @@ function ShapeUI() {
             for(j=0;j<this.shapeSize;j++) {
                 destination[i][j] = original[i][j];
                 var probability = Math.random();
-                if(probability < 0.10 && original[i][j] != false) {
-                    destination[i][j] += " block-bomb";
+                if(probability < 0.20 && original[i][j] != false) {
+                    if(this.spawnBombs()) {
+                        destination[i][j] += " block-bomb";
+                    }
                 }
             }
         }
@@ -203,7 +205,11 @@ function ShapeUI() {
                 $(this).attr("data-shapequeueindex", index - 1);
             }
         });
-    }
+    };
+
+    this.spawnBombs = function() {
+        return $('.switch input:checked').length > 0;
+    };
 
 }
 
