@@ -6,6 +6,10 @@ function Manager() {
     this.initialize = function() {
         board.initialize(this.rows, this.columns);
         shapeUI.initialize();
+        miscUI.initialize();
+
+        this.score = 0;
+        $("#current-score").text(0);
         if(Cookies.get('high-score') != undefined) {
             this.highScore = Cookies.get('high-score');
         }
@@ -34,7 +38,7 @@ function Manager() {
     }
 }
 
-var manager = new Manager();
+manager = new Manager();
 
 $(function() {
     manager.initialize();

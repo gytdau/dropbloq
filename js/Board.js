@@ -64,9 +64,7 @@ function Board() {
                 }
             }
         }
-        if (this.checkIfNoMovesLeft()){
-            alert("Game over");
-        }
+
         $.each(blockQueue, function(i, block) {
             setTimeout(function() {
                 boardUI.addBlock(block[0], block[1]);
@@ -174,8 +172,8 @@ function Board() {
 
     this.checkIfNoMovesLeft = function () {
         for (var shape = 0; shape < shapeUI.shapeQueue.length; shape++) {
-            for (var row = 0; row < this.boardData.length; row++) {
-                for (var column = 0; column < this.boardData[row].length; column++) {
+            for (var row = 0; row < manager.rows; row++) {
+                for (var column = 0; column < manager.columns; column++) {
                     if (this.shapeFits(shapeUI.shapeQueue[shape],column,row)) {
                         return false;
                     }

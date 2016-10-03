@@ -1,5 +1,6 @@
 function BoardUI() {
     this.initialize = function (rows, columns) {
+        $(".board-container").html("");
         var pixelHeight = $(".board-container").width();
 
         var tiles = "";

@@ -72,6 +72,9 @@ function ShapeUI() {
     this.posX = 0;
     this.posY = 0;
     this.initialize = function() {
+        $(".shapes").html("");
+        this.shapeQueue = [];
+
         this.cellSize = $(".board-container").width() / 10;
         this.addShapeToQueue();
         this.addShapeToQueue();
@@ -119,6 +122,9 @@ function ShapeUI() {
                 } else if(board.addShape(shapeUI.shapeSelected, posX - shapeUI.offsetX, posY - shapeUI.offsetY) == true) {
                     shapeUI.removeShape(parseInt(shape.data("shapequeueindex")));
                     shapeUI.addShapeToQueue();
+                    if (board.checkIfNoMovesLeft()){
+                        manager.lose();
+                    }
                 } else {
                     return true;
                 }
