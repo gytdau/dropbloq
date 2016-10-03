@@ -10,6 +10,7 @@ function MiscUI() {
     };
     this.showLossPopup = function() {
         $("#loss-popup").slideDown();
+        $("body").addClass("body-lose");
     };
 }
 
